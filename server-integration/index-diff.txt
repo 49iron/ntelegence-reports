@@ -1,0 +1,8 @@
+# What to add to server/index.ts
+# Two lines only — add after the existing imports, before app.listen
+
+# 1. Add import at top (after other imports):
+import { startReportScheduler } from './reportScheduler';
+
+# 2. Add after server starts (after app.listen or registerRoutes call):
+startReportScheduler();
