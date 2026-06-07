@@ -193,6 +193,7 @@ async function buildRegionalReport(
     shading: { fill: C.navy, type: ShadingType.CLEAR },
     spacing: { before: 180, after: 80 },
     indent: { left: 100, right: 100 },
+    keepNext: true,
   });
 
   const pctColor = (s: string) => {
@@ -264,13 +265,13 @@ async function buildRegionalReport(
   ];
 
   const makeTable = (headers: string[], rows: string[][], widths: number[]) => {
-    const hdrRow = new TableRow({ tableHeader: true, children: headers.map((h, i) => new TableCell({
+    const hdrRow = new TableRow({ tableHeader: true, cantSplit: true, children: headers.map((h, i) => new TableCell({
       borders, shading: { fill: C.navy, type: ShadingType.CLEAR },
       margins: { top: 70, bottom: 70, left: 90, right: 90 },
       width: { size: widths[i], type: WidthType.DXA },
       children: [p([t(h, { bold: true, color: C.white, size: 17 })], { alignment: AlignmentType.CENTER })],
     }))});
-    const dataRows = rows.map((row, ri) => new TableRow({ children: row.map((cell, ci) => {
+    const dataRows = rows.map((row, ri) => new TableRow({ cantSplit: true, children: row.map((cell, ci) => {
       const isLabel = ci === 0;
       const fill    = ri % 2 === 0 ? C.white : C.offwhite;
       const color   = !isLabel && String(cell).includes('%') ? pctColor(cell) : C.black;
